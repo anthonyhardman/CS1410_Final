@@ -46,7 +46,7 @@ namespace Final.Logic
 
         public void Draw(mat4 viewMatrix, mat4 projectionMatrix)
         {
-            Model_.draw(ModelMatrix, viewMatrix, projectionMatrix, UniformInts, UniformFloats);
+            Model_?.draw(ModelMatrix, viewMatrix, projectionMatrix, UniformInts, UniformFloats);
         }
     }
 }

@@ -6,17 +6,21 @@ namespace Final.Logic
     {
         private static uint NumberOfEntities;
         public static ComponentManager ComponentManager_;
+        public static EntityManager EntityManager_;
         public uint ID {get; init;}
-        
+        public EntityState State = EntityState.Enabled;
         static Entity()
         {
             NumberOfEntities = 0;
             ComponentManager_ = new ComponentManager();
+            EntityManager_ = new EntityManager();
         }
 
         public Entity()
         {
             ID = NumberOfEntities++;
+            EntityManager_.Entities.Add(this);
+
         }
 
         public void AddComponent<T>() where T : Component

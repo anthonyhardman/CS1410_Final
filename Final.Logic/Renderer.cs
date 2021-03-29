@@ -1,28 +1,33 @@
 using System;
+using System.Collections.Generic;
 using glfw3;
 using GlmSharp;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using ImGuiNET;
 
 namespace Final.Logic
 {
-    public class OpenGLRenderer
+    public class OpenGLRenderer : IRenderer
     {
         public GLFWwindow Window;
-        public static int SCR_Width;
-        public static int SCR_Height;
+        public int SCR_Width {get; set;}
+        public int SCR_Height {get; set;}
         private mat4 View;
         private mat4 Projection;
-        private GLFWframebuffersizefun FrameBufferSizeCallbackDelegate = FramebufferSizeCallback;
+        private GLFWframebuffersizefun FrameBufferSizeCallbackDelegate;
+        public List<RenderComponent> RenderComponents {get; set;}
 
         public OpenGLRenderer(int scr_width, int scr_height)
         {
             SCR_Width = scr_width;
             SCR_Height = scr_height;
 
+            RenderComponents = new List<RenderComponent>();
+
             Setup();
         }
-
+        
         public void Setup()
         {
             Glfw.WindowHint((int)State.ContextVersionMajor, 4);
@@ -31,9 +36,14 @@ namespace Final.Logic
 
             Window = Glfw.CreateWindow(SCR_Width, SCR_Height, "FinalProject", null, null);
 
+            FrameBufferSizeCallbackDelegate = FramebufferSizeCallback;
+
             Glfw.SetFramebufferSizeCallback(Window, FrameBufferSizeCallbackDelegate);
             Glfw.MakeContextCurrent(Window);
+        
             GL.LoadBindings(new GLFWBindingsContext());
+
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
             GL.Enable(EnableCap.DepthTest);
         }
 
@@ -45,11 +55,19 @@ namespace Final.Logic
             View = mat4.Translate(0.0f, 0.0f, -5.0f);
             Projection = mat4.Perspective(45.0f, (float)SCR_Width / SCR_Height, 0.1f, 200.0f);
 
+            foreach (RenderComponent renderComponent in RenderComponents)
+            {
+                renderComponent.Draw(View, Projection);
+            }
+
+            RenderComponents.Clear();
+
             Glfw.SwapBuffers(Window);
             Glfw.PollEvents();
+
         }
 
-        public static void FramebufferSizeCallback(IntPtr window, int width, int height)
+        public void FramebufferSizeCallback(IntPtr window, int width, int height)
         {
             GL.Viewport(0, 0, width, height);
 
