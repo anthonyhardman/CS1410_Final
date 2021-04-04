@@ -21,11 +21,7 @@ in vec3 FragPos;
 
 uniform Light light;
 uniform Material material;
-  
-vec3 lightPos = vec3(0.0f, 25.0f, 0.0f); 
-vec3 viewPos = vec3(0.0f, 0.0f, 5.0f); 
-vec3 lightColor = vec3 (0.0f, 1.0f, 0.0f);
-uniform vec3 objectColor = vec3(0.5f, 0.5f, 0.5f);
+uniform vec3 viewPos;
 
 void main()
 {

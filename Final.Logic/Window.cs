@@ -7,6 +7,7 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using ImGuiNET;
 using Dear_ImGui_Sample;
+using System.IO;
 
 namespace Final.Logic
 {
@@ -29,6 +30,8 @@ namespace Final.Logic
         {
             LastX = MouseState.Position.X;
             LastY = MouseState.Position.Y;
+
+            Mesh.Camera_ = Camera_;
         }
 
         protected override void OnLoad()
@@ -70,6 +73,11 @@ namespace Final.Logic
             ImGui.Begin("Scene");
             ImGui.ListBox("Entities", ref ListIndex, EntityID.ToArray(), Entity.EntityManager_.Entities.Count, 10);
             ImGui.Text(MouseState.Position.ToString());
+            if (ImGui.CollapsingHeader("Help!"))
+            {
+                string helpText = File.ReadAllText("TextFiles\\help.txt");
+                ImGui.TextWrapped(helpText);
+            }
             ImGui.End();
 
             foreach (Entity entity in Entity.EntityManager_.Entities)
@@ -174,7 +182,7 @@ namespace Final.Logic
             {
                 if (xoffset != 0 && yoffset != 0)
                 {
-                    Camera_.ProcessMouseMovement(xoffset, yoffset, false);
+                    Camera_.ProcessMouseMovement(xoffset, yoffset);
                 }
 
                 Camera_.ProcessMouseScroll(MouseState.ScrollDelta.Y);

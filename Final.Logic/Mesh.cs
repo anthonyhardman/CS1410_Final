@@ -7,6 +7,7 @@ namespace Final.Logic
 {
     public class Mesh
     {
+        public static Camera Camera_;
         public static Light Light_;
         public List<Vertex> Vertices;
         public List<uint> Indices;
@@ -76,6 +77,8 @@ namespace Final.Logic
             shader.setMat4("model", modelMatix);
             shader.setMat4("view", viewMatrix);
             shader.setMat4("projection", projectionMatrix);
+
+            shader.setVec3("viewPos", Camera_.GetComponent<TransformComponent>().Translate);
 
             if (Material_ != null)
             {

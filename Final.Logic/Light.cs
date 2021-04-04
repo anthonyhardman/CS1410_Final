@@ -11,9 +11,9 @@ namespace Final.Logic
 
         public Light()
         {
-            Position = new vec3(0.0f, 5.0f, 25.0f);
-            Ambient = new vec3(1.0f, 1.0f, 1.0f);
-            Diffuse = new vec3(1.0f, 1.0f, 1.0f);
+            Position = new vec3(-20.0f, 5.0f, 20.0f);
+            Ambient = new vec3(0.1f, 0.1f, 0.1f);
+            Diffuse = new vec3(0.5f, 1.0f, 0.5f);
             Specular = new vec3(1.0f, 1.0f, 1.0f);
         }
     }

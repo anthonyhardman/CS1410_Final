@@ -216,7 +216,7 @@ void main()
                 io.KeysDown[(int)key] = KeyboardState.IsKeyDown(key);
             }
 
-            if (SinceLastKeyPress > 0.135f)
+            if (SinceLastKeyPress > 0)
             {
                 foreach (Keys key in Enum.GetValues(typeof(Keys)))
                 {
@@ -224,7 +224,7 @@ void main()
                     {
                         continue;
                     }
-                    else if (KeyboardState.IsKeyDown(key))
+                    else if (KeyboardState.IsKeyPressed(key))
                     {
                         switch(key)
                         {

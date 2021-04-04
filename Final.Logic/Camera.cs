@@ -34,7 +34,7 @@ namespace Final.Logic
             AddComponent<TransformComponent>();
 
             GetComponent<TransformComponent>().Translate = new vec3(0.0f, 0.0f, 5.0f);
-            GetComponent<TransformComponent>().Rotation.y = 0.0f;
+            GetComponent<TransformComponent>().Rotation.y = 90.0f;
 
             UpdateCameraVectors();
         }
@@ -72,17 +72,17 @@ namespace Final.Logic
             yoffset *= MouseSensitivity;
 
             GetComponent<TransformComponent>().Rotation.x -= yoffset;
-            GetComponent<TransformComponent>().Rotation.y += xoffset;
+            GetComponent<TransformComponent>().Rotation.y -= xoffset;
 
             if (constrainPitch)
             {
-                if (GetComponent<TransformComponent>().Rotation.y > 89.0f)
+                if (GetComponent<TransformComponent>().Rotation.x > 89.0f)
                 {
-                    GetComponent<TransformComponent>().Rotation.y = 89.0f;
+                    GetComponent<TransformComponent>().Rotation.x = 89.0f;
                 }
-                if (GetComponent<TransformComponent>().Rotation.y < -89.0f)
+                if (GetComponent<TransformComponent>().Rotation.x < -89.0f)
                 {
-                    GetComponent<TransformComponent>().Rotation.y = -89.0f;
+                    GetComponent<TransformComponent>().Rotation.x = -89.0f;
                 }
             }
 
@@ -102,9 +102,9 @@ namespace Final.Logic
         {
             vec3 front;
             vec3 rotation = GetComponent<TransformComponent>().Rotation;
-            front.x = (float)Math.Sin(glm.Radians(rotation.y)) * (float)Math.Cos(glm.Radians(rotation.y));
+            front.x = (float)Math.Cos(glm.Radians(rotation.y)) * (float)Math.Cos(glm.Radians(rotation.x));
             front.y = (float)Math.Sin(glm.Radians(rotation.x));
-            front.z = -(float)Math.Cos(glm.Radians(rotation.y)) * (float)Math.Cos(glm.Radians(rotation.y));
+            front.z = -(float)Math.Sin(glm.Radians(rotation.y)) * (float)Math.Cos(glm.Radians(rotation.x));
 
             Front = glm.Normalized(front);
 
