@@ -7,17 +7,25 @@ namespace Final.Logic
 {
     public class Mesh
     {
+        public static Light Light_;
         public List<Vertex> Vertices;
         public List<uint> Indices;
         public Texture [] Textures;
+        public Material Material_;
 
         uint VAO, VBO, EBO;
 
-        public Mesh(List<Vertex> vertices, List<uint> indices, Texture [] textures)
+        static Mesh()
+        {
+            Light_ = new Light();
+        }
+
+        public Mesh(List<Vertex> vertices, List<uint> indices, Material material, Texture [] textures)
         {
             Vertices = vertices;
             Indices = indices;
             Textures = textures;
+            Material_ = material;
             Setup();
         }
 
@@ -68,6 +76,21 @@ namespace Final.Logic
             shader.setMat4("model", modelMatix);
             shader.setMat4("view", viewMatrix);
             shader.setMat4("projection", projectionMatrix);
+
+            if (Material_ != null)
+            {
+                shader.setVec3("material.ambient", Material_.Ambient);
+                shader.setVec3("material.diffuse", Material_.Diffuse);
+                shader.setVec3("material.specular", Material_.Specular);
+                shader.setFloat("material.shininess", Material_.Shininess);
+            }
+            if (Light_ != null)
+            {
+                shader.setVec3("light.position", Light_.Position);
+                shader.setVec3("light.ambient", Light_.Ambient);
+                shader.setVec3("light.diffuse", Light_.Diffuse);
+                shader.setVec3("light.specular", Light_.Specular);
+            }
 
             GL.BindVertexArray(VAO);
             GL.DrawElements(BeginMode.Triangles, Indices.Count, DrawElementsType.UnsignedInt, 0);

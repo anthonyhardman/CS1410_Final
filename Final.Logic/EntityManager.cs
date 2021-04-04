@@ -1,21 +1,32 @@
+using System;
 using System.Collections.Generic;
 
 namespace Final.Logic
 {
     public class EntityManager
     {
-        public IRenderer Renderer;
+        public Window Window;
         public List<Entity> Entities = new List<Entity>();
 
         public void Update()
         {
             foreach (Entity entity in Entities)
             {
-                if (entity.State == EntityState.Enabled)
+                bool hasRenderComponent = false;
+
+                foreach (Type t in entity.Components)
+                {
+                    if (t == typeof(RenderComponent))
+                    {
+                        hasRenderComponent = true;
+                    }
+                }
+                
+                if (entity.State == EntityState.Enabled && hasRenderComponent)
                 {
                     try
                     {
-                        Renderer.RenderComponents.Add(Entity.ComponentManager_.GetComponent<RenderComponent>(entity.ID));
+                        Window.renderComponents.Add(Entity.ComponentManager_.GetComponent<RenderComponent>(entity.ID));
                     }
                     catch (KeyNotFoundException)
                     {

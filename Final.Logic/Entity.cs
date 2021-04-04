@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Final.Logic
 {
@@ -8,7 +9,9 @@ namespace Final.Logic
         public static ComponentManager ComponentManager_;
         public static EntityManager EntityManager_;
         public uint ID {get; init;}
+        public string Name {get; set;}
         public EntityState State = EntityState.Enabled;
+        public List<Type> Components =  new List<Type>();
         static Entity()
         {
             NumberOfEntities = 0;
@@ -20,12 +23,13 @@ namespace Final.Logic
         {
             ID = NumberOfEntities++;
             EntityManager_.Entities.Add(this);
-
+            Name = $"Entity{ID}";
         }
 
         public void AddComponent<T>() where T : Component
         {
             ComponentManager_.AddComponent<T>(ID);
+            Components.Add(typeof(T));
         }
 
         public T GetComponent<T>() where T : Component

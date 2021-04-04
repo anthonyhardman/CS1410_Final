@@ -9,10 +9,15 @@ namespace Final.Logic
         public List<Mesh> Meshes = new List<Mesh>();
         Shader Shader;
         Texture [] Textures;
+        public string File;
+        public Material Material_;
+
         public Model(string file, Shader shader, params Texture [] textures)
         {
             Shader = shader;
             Textures = textures;
+            File = file;
+            Material_ = new Material();
             LoadModel(file);
         }
 
@@ -89,7 +94,7 @@ namespace Final.Logic
                 }
             }
 
-            return new Mesh(vertices, indices , Textures);
+            return new Mesh(vertices, indices, Material_, Textures);
         }
 
         public void draw(mat4 modelMatrix, mat4 viewMatrix, mat4 projectionMatrix, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats)

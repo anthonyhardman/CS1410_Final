@@ -16,9 +16,14 @@ namespace Final.Logic
         private string VertexShaderSource;
         private string FragmentShaderSource;
         private int [] infoLog = new int [1024];
+        public string VertexFile;
+        public string FragmentFile;
 
         public Shader(string VertexPath, string FragmentPath)
         {
+            VertexFile = VertexPath;
+            FragmentFile = FragmentPath;
+
             VertexShaderSource = File.ReadAllText(VertexPath);
             FragmentShaderSource = File.ReadAllText(FragmentPath);
 

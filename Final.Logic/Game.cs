@@ -1,23 +1,30 @@
 using System;
 using glfw3;
 using GlmSharp;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Desktop;
 
 namespace Final.Logic
 {
     public class Game : IGame
     {
-        OpenGLRenderer renderer = new OpenGLRenderer(800, 600);
-
         public void Run()
         {
-            Entity.EntityManager_.Renderer = renderer;
-            //GuiWindow gui = new GuiWindow(new vec3(0.25f, 1.0f, 1.0f), GuiAlignment.LEFT, null);
-
-            while (Glfw.WindowShouldClose(renderer.Window) < 1)
+            var nativeWindowSettings = new NativeWindowSettings()
             {
-                Entity.EntityManager_.Update();
-                renderer.Draw();
-            }
+                Size = new Vector2i(1920, 1080),
+                Title = "Hello!"
+            };
+
+            Window window = new Window(GameWindowSettings.Default, nativeWindowSettings);
+            window.VSync = OpenTK.Windowing.Common.VSyncMode.Off;
+
+            Entity.EntityManager_.Window = window;
+
+            Cube cube = new Cube();
+            Entity entity = new Entity();
+            
+            window.Run();
         }
     }
 }
