@@ -23,6 +23,8 @@ namespace Final.Logic
 
             Cube cube = new Cube();
             Entity entity = new Entity();
+            LightCube lightCube = new LightCube();
+            LightCube lightCube1 = new LightCube();
             
             window.Run();
         }

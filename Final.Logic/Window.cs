@@ -94,6 +94,10 @@ namespace Final.Logic
                         {
                             Widgets.Add(new RenderWidget(entity.GetComponent<RenderComponent>()));
                         }
+                        else if (t == typeof(LightComponent))
+                        {
+                            Widgets.Add(new LightWidget(entity.GetComponent<LightComponent>()));
+                        }
                     }
                 }
             }
@@ -176,7 +180,6 @@ namespace Final.Logic
             float yoffset = MouseState.Position.Y - LastY;
             LastX = MouseState.Position.X;
             LastY = MouseState.Position.Y;
-
 
             if (CameraActive)
             {

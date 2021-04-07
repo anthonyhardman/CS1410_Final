@@ -8,11 +8,13 @@ namespace Final.Logic
         private Dictionary<Type, uint> ComponentTypes = new Dictionary<Type, uint>()
         {
             {typeof(TransformComponent), 0},
-            {typeof(RenderComponent), 1}
+            {typeof(RenderComponent), 1},
+            {typeof(LightComponent), 2}
         };
 
         public Dictionary<uint, TransformComponent> TransformComponents = new Dictionary<uint, TransformComponent>();
         public Dictionary<uint, RenderComponent> RenderComponents = new Dictionary<uint, RenderComponent>();
+        public Dictionary<uint, LightComponent> LightComponents = new Dictionary<uint, LightComponent>();
 
         public T GetComponent<T>(uint entityID) where T : Component
         {
@@ -43,6 +45,18 @@ namespace Final.Logic
                     throw;
                 }
                 break;
+
+                case 2:
+                try
+                {
+                    component = LightComponents[entityID] as T;
+                }
+                catch
+                {
+                    Console.WriteLine($"Entity {entityID} does not have a light component!");
+                    throw;
+                }
+                break;
             }
 
             return component;
@@ -58,6 +72,10 @@ namespace Final.Logic
 
                 case 1:
                 RenderComponents.Add(entityID, new RenderComponent(GetComponent<TransformComponent>(entityID)));
+                break;
+
+                case 2:
+                LightComponents.Add(entityID, new LightComponent(GetComponent<TransformComponent>(entityID)));
                 break;
             }
         }

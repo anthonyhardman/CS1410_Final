@@ -8,7 +8,7 @@ namespace Final.Logic
     public class Mesh
     {
         public static Camera Camera_;
-        public static Light Light_;
+        public static List<LightComponent> Lights;
         public List<Vertex> Vertices;
         public List<uint> Indices;
         public Texture [] Textures;
@@ -18,7 +18,7 @@ namespace Final.Logic
 
         static Mesh()
         {
-            Light_ = new Light();
+            Lights = new List<LightComponent>();
         }
 
         public Mesh(List<Vertex> vertices, List<uint> indices, Material material, Texture [] textures)
@@ -87,13 +87,30 @@ namespace Final.Logic
                 shader.setVec3("material.specular", Material_.Specular);
                 shader.setFloat("material.shininess", Material_.Shininess);
             }
-            if (Light_ != null)
+            // if (Light_ != null)
+            // {
+            //     shader.setVec3("light.position", Light_.Position);
+            //     shader.setVec3("light.ambient", Light_.Ambient);
+            //     shader.setVec3("light.diffuse", Light_.Diffuse);
+            //     shader.setVec3("light.specular", Light_.Specular);
+            // }
+
+            
+            int count = 0;
+
+            foreach (LightComponent light in Lights)
             {
-                shader.setVec3("light.position", Light_.Position);
-                shader.setVec3("light.ambient", Light_.Ambient);
-                shader.setVec3("light.diffuse", Light_.Diffuse);
-                shader.setVec3("light.specular", Light_.Specular);
+                shader.setVec3($"lights[{count}].position", light.TransformComponent_.Translate);
+                shader.setVec3($"lights[{count}].ambient", light.Ambient);
+                shader.setVec3($"lights[{count}].diffuse", light.Diffuse);
+                shader.setVec3($"lights[{count}].specular", light.Specular);
+
+                ++count;
             }
+
+            Console.WriteLine(Lights.Count);
+
+            shader.setInt("lightCount", Lights.Count);
 
             GL.BindVertexArray(VAO);
             GL.DrawElements(BeginMode.Triangles, Indices.Count, DrawElementsType.UnsignedInt, 0);

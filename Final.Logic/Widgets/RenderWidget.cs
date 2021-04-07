@@ -37,11 +37,11 @@ namespace Final.Logic
                         RenderComponent_.Model_ = new Model(textBuffer, new Shader("Shaders\\basicLightingVert.glsl", "Shaders\\basicLightingFrag.glsl"));
                     }
 
-                    ImGui.PushItemWidth(100);
-
+                    
                     ImGui.TreePush();
                     if (ImGui.CollapsingHeader("Material"))
                     {
+                        ImGui.PushItemWidth(100);
                         ImGui.Text("Ambient");
                         MyColorPicker(ref RenderComponent_.Model_.Material_.Ambient, "ambient");
                         ImGui.Text("Diffuse");
