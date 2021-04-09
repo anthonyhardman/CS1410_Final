@@ -6,6 +6,8 @@ namespace Final.Logic
     {
         LightComponent LightComponent_;
 
+        bool HeaderOpen = false;
+
         public LightWidget(LightComponent lightComponent)
         {
             LightComponent_ = lightComponent;
@@ -17,7 +19,10 @@ namespace Final.Logic
 
             ImGui.PushItemWidth(250);
             
-            if (ImGui.CollapsingHeader("Light"))
+            //ImGui.SetNextItemOpen(HeaderOpen);
+
+            ImGui.PushID("light");
+            if (HeaderOpen = ImGui.CollapsingHeader("Light"))
             {
                 ImGui.PushItemWidth(100);
                 ImGui.Text("Ambient");

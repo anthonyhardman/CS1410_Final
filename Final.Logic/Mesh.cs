@@ -53,7 +53,7 @@ namespace Final.Logic
         }
 
         public void Draw(mat4 modelMatix, mat4 viewMatrix, mat4 projectionMatrix, 
-                         Shader shader, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats)
+                         Shader shader, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, List<Uniform<MyRef<vec3>>> uniformVec3s)
         {
             shader.use();
             for (int i = 0; i < Textures.Length; ++i)
@@ -64,14 +64,19 @@ namespace Final.Logic
             }
             GL.ActiveTexture(TextureUnit.Texture0);
 
-            foreach (Uniform<MyRef<int>> uniform in uniformInts)
+            foreach (var uniform in uniformInts)
             {
                 shader.setInt(uniform.Name, uniform.Value.Val);
             }
 
-            foreach (Uniform<MyRef<float>> uniform in uniformFloats)
+            foreach (var uniform in uniformFloats)
             {
                 shader.setFloat(uniform.Name, uniform.Value.Val);
+            }
+
+            foreach (var uniform in uniformVec3s)
+            {
+                shader.setVec3(uniform.Name, uniform.Value.Val);
             }
 
             shader.setMat4("model", modelMatix);
@@ -87,14 +92,6 @@ namespace Final.Logic
                 shader.setVec3("material.specular", Material_.Specular);
                 shader.setFloat("material.shininess", Material_.Shininess);
             }
-            // if (Light_ != null)
-            // {
-            //     shader.setVec3("light.position", Light_.Position);
-            //     shader.setVec3("light.ambient", Light_.Ambient);
-            //     shader.setVec3("light.diffuse", Light_.Diffuse);
-            //     shader.setVec3("light.specular", Light_.Specular);
-            // }
-
             
             int count = 0;
 
@@ -107,8 +104,6 @@ namespace Final.Logic
 
                 ++count;
             }
-
-            Console.WriteLine(Lights.Count);
 
             shader.setInt("lightCount", Lights.Count);
 

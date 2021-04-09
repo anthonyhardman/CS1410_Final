@@ -7,14 +7,14 @@ namespace Final.Logic
     public class Model
     {
         public List<Mesh> Meshes = new List<Mesh>();
-        Shader Shader;
+        public Shader Shader_;
         Texture [] Textures;
         public string File;
         public Material Material_;
 
         public Model(string file, Shader shader, params Texture [] textures)
         {
-            Shader = shader;
+            Shader_ = shader;
             Textures = textures;
             File = file;
             Material_ = new Material();
@@ -97,11 +97,11 @@ namespace Final.Logic
             return new Mesh(vertices, indices, Material_, Textures);
         }
 
-        public void draw(mat4 modelMatrix, mat4 viewMatrix, mat4 projectionMatrix, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats)
+        public void draw(mat4 modelMatrix, mat4 viewMatrix, mat4 projectionMatrix, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, List<Uniform<MyRef<vec3>>> uniformVec3s)
         {
             foreach (Mesh mesh in Meshes)
             {
-                mesh.Draw(modelMatrix, viewMatrix, projectionMatrix, Shader, uniformInts, uniformFloats);
+                mesh.Draw(modelMatrix, viewMatrix, projectionMatrix, Shader_, uniformInts, uniformFloats, uniformVec3s);
             }
         }
     }

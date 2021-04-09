@@ -9,6 +9,7 @@ namespace Final.Logic
         private TransformComponent Transform;
         public List<Uniform<MyRef<int>>> UniformInts = new List<Uniform<MyRef<int>>>();
         public List<Uniform<MyRef<float>>> UniformFloats = new List<Uniform<MyRef<float>>>();
+        public List<Uniform<MyRef<vec3>>> UniformVec3s = new List<Uniform<MyRef<vec3>>>(); 
 
         mat4 ModelMatrix 
         {
@@ -46,7 +47,7 @@ namespace Final.Logic
 
         public void Draw(mat4 viewMatrix, mat4 projectionMatrix)
         {
-            Model_?.draw(ModelMatrix, viewMatrix, projectionMatrix, UniformInts, UniformFloats);
+            Model_?.draw(ModelMatrix, viewMatrix, projectionMatrix, UniformInts, UniformFloats, UniformVec3s);
         }
     }
 }
