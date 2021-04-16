@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Collections.Generic;
 using GlmSharp;
 using OpenTK.Graphics.OpenGL4;
@@ -13,13 +14,16 @@ namespace Final.Logic
 {
     public class Window : GameWindow
     {
-        static int ListIndex = 0;
+        static int EntityIndex = 0;
+        static int EntityTypeIndex = 0;
+        static int ComponentTypeIndex = 0;
         private mat4 View;
         private mat4 projection;
         private Camera Camera_ = new Camera();
         public List<RenderComponent> renderComponents = new List<RenderComponent>();
         private ImGuiController imGuiController;
         private List<IImguiWidget> Widgets = new List<IImguiWidget>();
+        private string ErrorText = "";
 
         float LastX;
         float LastY;
@@ -56,7 +60,14 @@ namespace Final.Logic
             projection = mat4.Perspective(Camera_.Zoom, (float)Size.X / Size.Y, 0.1f, 200.0f);
 
             List<string> EntityID = new List<string>();
-
+            List<string> EntityTypes = new List<string>()
+            {
+                "Entity", "Cube", "LightCube"
+            };
+            List<string> ComponentTypes = new List<string>()
+            {
+                "Transform", "Render", "Material", "Light", "Shader"
+            };
 
             foreach (Entity entity in Entity.EntityManager_.Entities)
             {
@@ -71,8 +82,37 @@ namespace Final.Logic
             renderComponents.Clear();
 
             ImGui.Begin("Scene");
-            ImGui.ListBox("Entities", ref ListIndex, EntityID.ToArray(), Entity.EntityManager_.Entities.Count, 10);
-            ImGui.Text(MouseState.Position.ToString());
+            ImGui.ListBox("Entities", ref EntityIndex, EntityID.ToArray(), Entity.EntityManager_.Entities.Count, 10);
+            if (ImGui.BeginCombo("", EntityTypes[EntityTypeIndex]))
+            {
+                for (int i = 0; i < EntityTypes.Count; ++i)
+                {
+                    if (ImGui.Selectable(EntityTypes[i]))
+                    {
+                        EntityTypeIndex = i;
+                    }
+                }
+                ImGui.EndCombo();
+            }
+
+            ImGui.SameLine();
+            if (ImGui.Button("Add Entity"))
+            {
+                switch (EntityTypes[EntityTypeIndex])
+                {
+                    case "Entity":
+                        Entity entity = new Entity();
+                        break;
+
+                    case "Cube":
+                        Cube cube = new Cube();
+                        break;
+
+                    case "LightCube":
+                        LightCube lightCube = new LightCube();
+                        break;
+                }
+            }
             if (ImGui.CollapsingHeader("Help!"))
             {
                 string helpText = File.ReadAllText("TextFiles\\help.txt");
@@ -82,7 +122,7 @@ namespace Final.Logic
 
             foreach (Entity entity in Entity.EntityManager_.Entities)
             {
-                if (entity.Name == EntityID[ListIndex])
+                if (entity.Name == EntityID[EntityIndex])
                 {
                     foreach (Type t in entity.Components)
                     {
@@ -98,17 +138,133 @@ namespace Final.Logic
                         {
                             Widgets.Add(new LightWidget(entity.GetComponent<LightComponent>()));
                         }
+                        else if (t == typeof(ShaderComponent))
+                        {
+                            Widgets.Add(new ShaderWidget(entity.GetComponent<ShaderComponent>()));
+                        }
+                        else if (t == typeof(MaterialComponent))
+                        {
+                            Widgets.Add(new MaterialWidget(entity.GetComponent<RenderComponent>(), entity.GetComponent<MaterialComponent>()));
+                        }
                     }
                 }
             }
-
-
 
             ImGui.Begin("Components");
             foreach (IImguiWidget widget in Widgets)
             {
                 widget.Run();
             }
+            ImGui.Separator();
+            ImGui.PushID("Combo");
+            if (ImGui.BeginCombo("", ComponentTypes[ComponentTypeIndex]))
+            {
+                for (int i = 0; i < ComponentTypes.Count; ++i)
+                {
+                    if (ImGui.Selectable(ComponentTypes[i]))
+                    {
+                        ComponentTypeIndex = i;
+                    }
+                }
+                ImGui.EndCombo();
+            }
+            ImGui.SameLine();
+            if (ImGui.Button("Add Component"))
+            {
+                switch (ComponentTypes[ComponentTypeIndex])
+                {
+                    case "Transform":
+                        if (!Entity.EntityManager_.Entities[EntityIndex].Components.Contains(typeof(TransformComponent)))
+                        {
+                            Entity.EntityManager_.Entities[EntityIndex].AddComponent<TransformComponent>();
+                            ErrorText = "";
+                        }
+                        else
+                        {
+                            ErrorText = "Entity already has a transform component!";
+                        }
+                        break;
+
+                    case "Render":
+                        try
+                        {
+                            if (!Entity.EntityManager_.Entities[EntityIndex].Components.Contains(typeof(RenderComponent)))
+                            {
+                                Entity.EntityManager_.Entities[EntityIndex].AddComponent<RenderComponent>();
+                                Entity.EntityManager_.Entities[EntityIndex].GetComponent<RenderComponent>().Model_
+                                 = new Model("Models\\cube.dae", new Shader("Shaders\\basicVert.glsl", "Shaders\\basicFrag.glsl"));
+                                ErrorText = "";
+                            }
+                            else
+                            {
+                                ErrorText = "Entity already has a render component!";
+                            }
+                        }
+                        catch
+                        {
+                            ErrorText = "Entity Must have a transform component to add a render component";
+                        }
+                        break;
+
+                    case "Material":
+                        try
+                        {
+                            if (!Entity.EntityManager_.Entities[EntityIndex].Components.Contains(typeof(MaterialComponent)))
+                            {
+                                Entity.EntityManager_.Entities[EntityIndex].AddComponent<MaterialComponent>();
+                                ErrorText = "";
+                            }
+                            else
+                            {
+                                ErrorText = "Entity already has a material component!";
+                            }
+                        }
+                        catch
+                        {
+                            ErrorText = "Must have a render component to add a material!";
+                        }
+                        break;
+
+                    case "Light":
+                        try
+                        {
+                            if (!Entity.EntityManager_.Entities[EntityIndex].Components.Contains(typeof(LightComponent)))
+                            {
+                                Entity.EntityManager_.Entities[EntityIndex].AddComponent<LightComponent>();
+                                ErrorText = "";
+                            }
+                            else
+                            {
+                                ErrorText = "Entity already has a light component!";
+                            }
+                        }
+                        catch
+                        {
+                            ErrorText = "Must have a transform component to add a light!";
+                        }
+                        break;
+
+                    case "Shader":
+                        try
+                        {
+                            if (!Entity.EntityManager_.Entities[EntityIndex].Components.Contains(typeof(ShaderComponent)))
+                            {
+                                Entity.EntityManager_.Entities[EntityIndex].AddComponent<ShaderComponent>();
+                                ErrorText = "";
+                            }
+                            else
+                            {
+                                ErrorText = "Entity already has a light component!";
+                            }
+                        }
+                        catch
+                        {
+                            ErrorText = "Must have a render component to add a shader!";
+                        }
+                        break;
+                }
+            }
+            ImGui.TextColored(new Vector4(1.0f, 0.0f, 0.0f, 1.0f), ErrorText);
             ImGui.End();
 
             imGuiController.Render();
@@ -161,7 +317,7 @@ namespace Final.Logic
             {
                 Camera_.ProcessKeyboard(Camera_Movement.LEFT, (float)args.Time);
             }
-            if (KeyboardState.IsKeyPressed(Keys.T))
+            if (KeyboardState.IsKeyPressed(Keys.F1))
             {
                 if (CameraActive)
                 {

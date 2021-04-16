@@ -4,27 +4,4 @@ A - Left
 S - Backward
 D - Right
 
-T - Toggle Free Look
-
-Selecting an entity from the list
-will show it's components in the
-Components window. In the component
-window you can edit properties.
-
-The current components an entity 
-can have are Render Components 
-and Transform Components
-
-Render Components: You can change
-the model by enter a file path to 
-a model file. Dae files generated
-by blender work great. I can't 
-guarantee other file formats will
-work correctly but they probably 
-do. You can also change material
-settings and see how that affects
-the entity.
-
-Transform Components: You can 
-translate, rotate, and scale the
-entity.
+F1 - Toggle Free Look

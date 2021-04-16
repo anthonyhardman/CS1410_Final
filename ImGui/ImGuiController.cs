@@ -235,10 +235,7 @@ void main()
                             case Keys.Down:
                             continue;
                         }
-                        if (Char.IsLetterOrDigit((char)key))
-                        {
-                            PressedChars.Add((char)key);
-                        }
+                        PressedChars.Add((char)key);
                     }
                 }
 

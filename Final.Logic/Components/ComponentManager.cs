@@ -9,12 +9,16 @@ namespace Final.Logic
         {
             {typeof(TransformComponent), 0},
             {typeof(RenderComponent), 1},
-            {typeof(LightComponent), 2}
+            {typeof(LightComponent), 2},
+            {typeof(ShaderComponent), 3},
+            {typeof(MaterialComponent), 4}
         };
 
         public Dictionary<uint, TransformComponent> TransformComponents = new Dictionary<uint, TransformComponent>();
         public Dictionary<uint, RenderComponent> RenderComponents = new Dictionary<uint, RenderComponent>();
         public Dictionary<uint, LightComponent> LightComponents = new Dictionary<uint, LightComponent>();
+        public Dictionary<uint, ShaderComponent> ShaderComponents = new Dictionary<uint, ShaderComponent>();
+        public Dictionary<uint, MaterialComponent> MaterialComponents = new Dictionary<uint, MaterialComponent>();
 
         public T GetComponent<T>(uint entityID) where T : Component
         {
@@ -57,6 +61,30 @@ namespace Final.Logic
                     throw;
                 }
                 break;
+
+                case 3:
+                try
+                {
+                    component = ShaderComponents[entityID] as T;
+                }
+                catch
+                {
+                    Console.WriteLine($"Entity {entityID} does not have a shader component!");
+                    throw;
+                }
+                break;
+
+                case 4:
+                try
+                {
+                    component = MaterialComponents[entityID] as T;
+                }
+                catch
+                {
+                    Console.WriteLine($"Entity {entityID} does not have a material component!");
+                    throw;
+                }
+                break;
             }
 
             return component;
@@ -76,6 +104,14 @@ namespace Final.Logic
 
                 case 2:
                 LightComponents.Add(entityID, new LightComponent(GetComponent<TransformComponent>(entityID)));
+                break;
+
+                case 3:
+                ShaderComponents.Add(entityID, new ShaderComponent(GetComponent<RenderComponent>(entityID)));
+                break;
+
+                case 4:
+                MaterialComponents.Add(entityID, new MaterialComponent(GetComponent<RenderComponent>(entityID)));
                 break;
             }
         }

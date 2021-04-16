@@ -12,7 +12,6 @@ namespace Final.Logic
         public List<Vertex> Vertices;
         public List<uint> Indices;
         public Texture [] Textures;
-        public Material Material_;
 
         uint VAO, VBO, EBO;
 
@@ -21,12 +20,11 @@ namespace Final.Logic
             Lights = new List<LightComponent>();
         }
 
-        public Mesh(List<Vertex> vertices, List<uint> indices, Material material, Texture [] textures)
+        public Mesh(List<Vertex> vertices, List<uint> indices, MaterialComponent material, Texture [] textures)
         {
             Vertices = vertices;
             Indices = indices;
             Textures = textures;
-            Material_ = material;
             Setup();
         }
 
@@ -52,8 +50,9 @@ namespace Final.Logic
             GL.EnableVertexAttribArray(2);
         }
 
-        public void Draw(mat4 modelMatix, mat4 viewMatrix, mat4 projectionMatrix, 
-                         Shader shader, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, List<Uniform<MyRef<vec3>>> uniformVec3s)
+        public void Draw(mat4 modelMatix, mat4 viewMatrix, mat4 projectionMatrix, Shader shader, 
+                         List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, 
+                         List<Uniform<MyRef<vec3>>> uniformVec3s, MaterialComponent material)
         {
             shader.use();
             for (int i = 0; i < Textures.Length; ++i)
@@ -85,12 +84,12 @@ namespace Final.Logic
 
             shader.setVec3("viewPos", Camera_.GetComponent<TransformComponent>().Translate);
 
-            if (Material_ != null)
+            if (material != null)
             {
-                shader.setVec3("material.ambient", Material_.Ambient);
-                shader.setVec3("material.diffuse", Material_.Diffuse);
-                shader.setVec3("material.specular", Material_.Specular);
-                shader.setFloat("material.shininess", Material_.Shininess);
+                shader.setVec3("material.ambient", material.Ambient);
+                shader.setVec3("material.diffuse", material.Diffuse);
+                shader.setVec3("material.specular", material.Specular);
+                shader.setFloat("material.shininess", material.Shininess);
             }
             
             int count = 0;

@@ -10,14 +10,13 @@ namespace Final.Logic
         public Shader Shader_;
         Texture [] Textures;
         public string File;
-        public Material Material_;
+        public MaterialComponent MaterialComponent_;
 
         public Model(string file, Shader shader, params Texture [] textures)
         {
             Shader_ = shader;
             Textures = textures;
             File = file;
-            Material_ = new Material();
             LoadModel(file);
         }
 
@@ -94,14 +93,14 @@ namespace Final.Logic
                 }
             }
 
-            return new Mesh(vertices, indices, Material_, Textures);
+            return new Mesh(vertices, indices, MaterialComponent_, Textures);
         }
 
         public void draw(mat4 modelMatrix, mat4 viewMatrix, mat4 projectionMatrix, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, List<Uniform<MyRef<vec3>>> uniformVec3s)
         {
             foreach (Mesh mesh in Meshes)
             {
-                mesh.Draw(modelMatrix, viewMatrix, projectionMatrix, Shader_, uniformInts, uniformFloats, uniformVec3s);
+                mesh.Draw(modelMatrix, viewMatrix, projectionMatrix, Shader_, uniformInts, uniformFloats, uniformVec3s, MaterialComponent_);
             }
         }
     }

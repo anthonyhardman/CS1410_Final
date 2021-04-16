@@ -10,40 +10,33 @@ namespace Final.Logic
         public RenderWidget(RenderComponent renderComponent)
         {
             RenderComponent_ = renderComponent;
-            textBuffer = RenderComponent_.Model_.File;
+
+            if (RenderComponent_.Model_ != null)
+            {
+                textBuffer = RenderComponent_.Model_.File;
+            }
+            else
+            {
+                textBuffer = "";
+            }
         }
 
         public override void Run()
         {
-            ImGui.Separator();
-
-            ImGui.PushItemWidth(1);
-
             ImGui.PushItemWidth(250);
+            ImGui.PushID("Model");
             if (ImGui.CollapsingHeader("Model"))
             {
                 if (ImGui.InputText("", ref textBuffer, 200))
                 {
                     RenderComponent_.Model_.File = textBuffer;
                 }
-
-                ImGui.SameLine();
                 if (ImGui.Button("Change"))
                 {
+                    MaterialComponent material = RenderComponent_.Model_.MaterialComponent_;
                     RenderComponent_.Model_ = new Model(textBuffer, new Shader("Shaders\\basicLightingVert.glsl", "Shaders\\basicLightingFrag.glsl"));
+                    RenderComponent_.Model_.MaterialComponent_ = material;
                 }
-            }
-            if (ImGui.CollapsingHeader("Material"))
-            {
-                ImGui.PushItemWidth(100);
-                ImGui.Text("Ambient");
-                MyColorPicker(ref RenderComponent_.Model_.Material_.Ambient, "ambient");
-                ImGui.Text("Diffuse");
-                MyColorPicker(ref RenderComponent_.Model_.Material_.Diffuse, "diffuse");
-                ImGui.Text("Specular");
-                MyColorPicker(ref RenderComponent_.Model_.Material_.Specular, "specular");
-                ImGui.Text("Shininess");
-                IncreaseDecreaseDragFloat(ref RenderComponent_.Model_.Material_.Shininess, "", "shininess");
             }
         }
     }

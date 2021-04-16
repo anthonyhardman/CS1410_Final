@@ -15,8 +15,9 @@ namespace Final.Logic
 
             AddComponent<TransformComponent>();
             AddComponent<RenderComponent>();
-
             GetComponent<RenderComponent>().Model_ = new Model("Models\\cube.dae", new Shader("Shaders\\basicLightingVert.glsl", "Shaders\\basicLightingFrag.glsl"));
+            AddComponent<ShaderComponent>();
+            AddComponent<MaterialComponent>();
         }
     }
 }
