@@ -4,6 +4,10 @@
     <ProjectReference Include="..\Final.Logic\Final.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpenTK" Version="4.6.3" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>

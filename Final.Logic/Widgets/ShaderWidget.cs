@@ -1,3 +1,4 @@
+using System.Numerics;
 using ImGuiNET;
 
 namespace Final.Logic
@@ -30,7 +31,25 @@ namespace Final.Logic
                 }
                 if (ImGui.Button("Change"))
                 {
-                    ShaderComponent_.RenderComponent_.Model_.Shader_ = new Shader(ShaderComponent_.VertexFile, ShaderComponent_.FragmentFile);
+                    try
+                    {
+                        ShaderComponent_.RenderComponent_.Model_.Shader_ = new Shader(ShaderComponent_.VertexFile, ShaderComponent_.FragmentFile);
+                        ErrorState = false;
+                    }
+                    catch(System.IO.FileNotFoundException e)
+                    {
+                        ErrorText = e.Message;
+                        ErrorState = true;
+                    }
+                    catch(System.IO.DirectoryNotFoundException e)
+                    {
+                        ErrorText = e.Message;
+                        ErrorState = true;
+                    }
+                }
+                if (ErrorState)
+                {
+                    ImGui.TextWrapped(ErrorText);
                 }
             }
         }
