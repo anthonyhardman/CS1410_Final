@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Final.Logic
 {
-    public class EntityManager : IEntityService
+    public class EntityManager
     {
         public List<Entity> Entities = new List<Entity>();
 

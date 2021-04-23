@@ -5,7 +5,7 @@ namespace Final.Logic
 {
     public class SceneViewerLogic
     {
-        private readonly IEntityService EntityService_;
+        private readonly EntityManager EntityManager_;
         public List<string> EntityTypes = new List<string>()
         {
             "Entity", "Cube", "LightCube"
@@ -18,24 +18,24 @@ namespace Final.Logic
         public List<IImguiWidget> ComponentWidgets;
         public IEnumerable<RenderComponent> RenderComponents;
 
-        public SceneViewerLogic(IEntityService entityService)
+        public SceneViewerLogic(EntityManager entityManager)
         {
-            EntityService_ = entityService;
+            EntityManager_ = entityManager;
         }
 
         public IEnumerable<RenderComponent> GetRenderComponents()
         {
-            return EntityService_.GetRenderComponents();
+            return EntityManager_.GetRenderComponents();
         }
 
         public IEnumerable<string> GetEntityNames()
         {
-            return EntityService_.GetEntityNames();
+            return EntityManager_.GetEntityNames();
         }
 
         public IEnumerable<Entity> GetEntities()
         {
-            return EntityService_.GetEntities();
+            return EntityManager_.GetEntities();
         }
 
         public void AddEntity(int entityTypeIndex)
