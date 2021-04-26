@@ -33,9 +33,26 @@ namespace Final.Logic
                 }
                 if (ImGui.Button("Change"))
                 {
-                    MaterialComponent material = RenderComponent_.Model_.MaterialComponent_;
-                    RenderComponent_.Model_ = new Model(textBuffer, new Shader("Shaders\\basicLightingVert.glsl", "Shaders\\basicLightingFrag.glsl"));
-                    RenderComponent_.Model_.MaterialComponent_ = material;
+                    try
+                    {
+                        MaterialComponent material = RenderComponent_.Model_.MaterialComponent_;
+                        RenderComponent_.Model_ = new Model(textBuffer, new Shader("Shaders\\basicLightingVert.glsl", "Shaders\\basicLightingFrag.glsl"));
+                        RenderComponent_.Model_.MaterialComponent_ = material;
+                    }
+                    catch(System.IO.FileNotFoundException e)
+                    {
+                        ErrorText = e.Message;
+                        ErrorState = true;
+                    }
+                    catch(System.IO.DirectoryNotFoundException e)
+                    {
+                        ErrorText = e.Message;
+                        ErrorState = true;
+                    }
+                }
+                if (ErrorState)
+                {
+                    ImGui.TextWrapped(ErrorText);
                 }
             }
         }
