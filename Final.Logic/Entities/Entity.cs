@@ -36,5 +36,10 @@ namespace Final.Logic
         {
             return ComponentManager_.GetComponent<T>(ID);
         }
+
+        public List<IImguiWidget> GetWidgets()
+        {
+            return ComponentManager_.GetWidgets(ID);
+        }
     }
 }

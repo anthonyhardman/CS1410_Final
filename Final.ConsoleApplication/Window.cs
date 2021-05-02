@@ -33,6 +33,8 @@ namespace Final.Logic
         private float LastY;
         private bool CameraActive = false;
 
+        private bool DrawLines = false;
+
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, SceneViewerLogic sceneViewerLogic)
             : base(gameWindowSettings, nativeWindowSettings)
         {
@@ -54,7 +56,15 @@ namespace Final.Logic
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
-            
+            if (DrawLines)
+            {
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            }
+            else
+            {
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+            }
+
             GL.Enable(EnableCap.DepthTest);
 
             RenderComponents = _SceneViewerLogic.GetRenderComponents();
@@ -75,6 +85,7 @@ namespace Final.Logic
                 component.Draw(View, projection);
             }
 
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             ImGui.Begin("Scene");
             ImGui.ListBox("Entities", ref EntityIndex, EntityNames.ToArray(), Entity.EntityManager_.Entities.Count, 20);
             if (ImGui.BeginCombo("", _SceneViewerLogic.EntityTypes[EntityTypeIndex]))
@@ -94,6 +105,7 @@ namespace Final.Logic
             {
                 _SceneViewerLogic.AddEntity(EntityTypeIndex);
             }
+            ImGui.Checkbox("Draw Lines", ref DrawLines);
             if (ImGui.CollapsingHeader("Help!"))
             {
                 string helpText = File.ReadAllText("TextFiles\\help.txt");
@@ -134,8 +146,6 @@ namespace Final.Logic
             ImGui.End();
 
             imGuiController.Render();
-
-            Widgets.Clear();
 
             SwapBuffers();
 
