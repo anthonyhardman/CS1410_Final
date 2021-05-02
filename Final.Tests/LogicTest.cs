@@ -101,6 +101,8 @@ namespace Final.Tests
 
             
             List<IImguiWidget> widgets = componentManager.GetWidgets(0);
+
+            Assert.AreNotEqual(widgets, null);
         }
     }
 }
