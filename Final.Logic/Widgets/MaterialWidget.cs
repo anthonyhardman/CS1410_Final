@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ImGuiNET;
 namespace Final.Logic
 {
@@ -10,10 +11,30 @@ namespace Final.Logic
             MaterialComponent_ = materialComponent;
         }
 
+        private List<string> MaterialNames = new List<string>()
+        {
+            "Emerald", "Jade", "Obsidian", "Pearl" 
+        };
+
         public override void Run()
         {
+            string Material;
             if (ImGui.CollapsingHeader("Material"))
             {
+                if (ImGui.BeginCombo("Presets", "Custom"))
+                {
+                    foreach(string material in MaterialNames)
+                    {
+                        if (ImGui.Selectable(material))
+                        {
+                            Material = material;
+                        }
+                    }
+                    ImGui.EndCombo();
+                }
+
+                
+
                 ImGui.PushItemWidth(100);
                 ImGui.Text("Ambient");
                 MyColorPicker(ref MaterialComponent_.Ambient, "ambient");

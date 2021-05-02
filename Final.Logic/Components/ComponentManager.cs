@@ -19,6 +19,7 @@ namespace Final.Logic
         public Dictionary<uint, LightComponent> LightComponents = new Dictionary<uint, LightComponent>();
         public Dictionary<uint, ShaderComponent> ShaderComponents = new Dictionary<uint, ShaderComponent>();
         public Dictionary<uint, MaterialComponent> MaterialComponents = new Dictionary<uint, MaterialComponent>();
+        public Dictionary<uint, List<IImguiWidget>> Widgets = new Dictionary<uint, List<IImguiWidget>>();
 
         public T GetComponent<T>(uint entityID) where T : Component
         {

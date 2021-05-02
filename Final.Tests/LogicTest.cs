@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Final.Logic;
+using System.Collections.Generic;
 
 namespace Final.Tests
 {
@@ -8,89 +9,64 @@ namespace Final.Tests
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]
         public void AddTransformComponentTest()
         {
-            Entity entity = new Entity();
             ComponentManager componentManager = new ComponentManager();
 
-            componentManager.AddComponent<TransformComponent>(entity.ID);
+            componentManager.AddComponent<TransformComponent>(0);
 
-            if (componentManager.TransformComponents.Count == 1)
-            {
-                Assert.Pass();
-            }
-            else
-            {
-                Assert.Fail();
-            }
+            Assert.AreEqual(componentManager.TransformComponents.Count, 1);
         }
 
         [Test]
         public void AddRenderComponentTest()
         {
-            Entity entity = new Entity();
             ComponentManager componentManager = new ComponentManager();
-            componentManager.AddComponent<RenderComponent>(entity.ID);
 
-            if (componentManager.RenderComponents.Count == 1)
-            {
-                Assert.Pass();
-            }
-            else
-            {
-                Assert.Fail();
-            }
+            componentManager.AddComponent<TransformComponent>(0);
+            componentManager.AddComponent<RenderComponent>(0);
+
+            Assert.AreEqual(componentManager.RenderComponents.Count, 1);
         }
 
         [Test]
         public void GetTransformCompnentTest()
         {
-            Entity entity = new Entity();
             ComponentManager componentManager = new ComponentManager();
+            Entity entity = new Entity();
+
             componentManager.AddComponent<TransformComponent>(entity.ID);
 
-            TransformComponent transform = componentManager.GetComponent<TransformComponent>(entity.ID);
+            TransformComponent transformComponent = componentManager.GetComponent<TransformComponent>(entity.ID);
 
-            if (transform != null)
-            {
-                Assert.Pass();
-            }
-            else
-            {
-                Assert.Fail();
-            }
+            Assert.AreNotEqual(transformComponent, null);
         }
 
         [Test]
         public void GetRenderCompnentTest()
         {
-            Entity entity = new Entity();
             ComponentManager componentManager = new ComponentManager();
+            Entity entity = new Entity();
+
+            componentManager.AddComponent<TransformComponent>(entity.ID);
             componentManager.AddComponent<RenderComponent>(entity.ID);
 
             RenderComponent renderComponent = componentManager.GetComponent<RenderComponent>(entity.ID);
 
-            if (renderComponent != null)
-            {
-                Assert.Pass();
-            }
-            else
-            {
-                Assert.Fail();
-            }
+            Assert.AreNotEqual(renderComponent, null);
         }
 
         [Test]
         public void GetInvalidTransformComponentTest()
         {
-            Entity entity = new Entity();
             ComponentManager componentManager = new ComponentManager();
             try
             {
-                componentManager.GetComponent<TransformComponent>(entity.ID);
+                componentManager.GetComponent<TransformComponent>(0);
             }
             catch (System.Collections.Generic.KeyNotFoundException)
             {
@@ -101,17 +77,30 @@ namespace Final.Tests
         [Test]
         public void GetInvalidRenderComponentTest()
         {
-            Entity entity = new Entity();
             ComponentManager componentManager = new ComponentManager();
 
             try
             {
-                componentManager.GetComponent<RenderComponent>(entity.ID);
+                componentManager.GetComponent<RenderComponent>(0);
             }
             catch (System.Collections.Generic.KeyNotFoundException)
             {
                 Assert.Pass();
             }
+        }
+
+        [Test]
+        public void GetWidgetsTest()
+        {
+            ComponentManager componentManager = new ComponentManager();
+
+            componentManager.Widgets = new Dictionary<uint, List<IImguiWidget>>()
+            {
+                {0, new List<IImguiWidget>()}
+            };
+
+            
+            List<IImguiWidget> widgets = componentManager.GetWidgets(0);
         }
     }
 }

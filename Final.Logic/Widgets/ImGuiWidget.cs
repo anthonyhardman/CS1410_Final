@@ -3,10 +3,10 @@ using ImGuiNET;
 
 namespace Final.Logic
 {
-    public class ImGuiWidget : IImguiWidget
+    public abstract class ImGuiWidget : IImguiWidget
     {
-        public static string ErrorText = "";
-        public static bool ErrorState = false;
+        public string ErrorText = "";
+        public bool ErrorState = false;
         public static void IncreaseDecreaseDragFloat(ref float value, string label, string id)
         {
             ImGui.PushItemWidth(100);
