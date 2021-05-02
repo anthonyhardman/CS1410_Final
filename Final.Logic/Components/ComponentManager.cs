@@ -117,7 +117,6 @@ namespace Final.Logic
             }
         }
 
-
         public List<IImguiWidget> GetWidgets(uint entityID)
         {
             return Widgets[entityID];
@@ -125,7 +124,16 @@ namespace Final.Logic
 
         public void AddWidget(uint entityID, IImguiWidget widget)
         {
-            
+            if (Widgets.ContainsKey(entityID))
+            {
+                Widgets[entityID].Add(widget);
+            }
+            else
+            {
+                Widgets.Add(entityID, new List<IImguiWidget>(){
+                    widget
+                });
+            }
         }
     }
 }
