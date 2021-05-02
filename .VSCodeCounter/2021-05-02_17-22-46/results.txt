@@ -1,0 +1,86 @@
+Date : 2021-05-02 17:22:46
+Directory : c:\CS1410-1415\cs1410.final
+Total : 49 files,  2494 codes, 38 comments, 438 blanks, all 2970 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |         37 |      2,300 |         35 |        381 |      2,716 |
+| GLSL     |          6 |         97 |          3 |         30 |        130 |
+| XML      |          4 |         51 |          0 |         15 |         66 |
+| Ini      |          1 |         40 |          0 |         11 |         51 |
+|          |          1 |          6 |          0 |          1 |          7 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                 | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                    |         49 |      2,494 |         38 |        438 |      2,970 |
+| Final.ConsoleApplication                                                             |         11 |        372 |          3 |         87 |        462 |
+| Final.ConsoleApplication\Shaders                                                     |          6 |         97 |          3 |         30 |        130 |
+| Final.ConsoleApplication\TextFiles                                                   |          1 |          6 |          0 |          1 |          7 |
+| Final.Logic                                                                          |         31 |      1,381 |          3 |        176 |      1,560 |
+| Final.Logic\Components                                                               |         10 |        296 |          0 |         45 |        341 |
+| Final.Logic\Entities                                                                 |          6 |        205 |          0 |         35 |        240 |
+| Final.Logic\Widgets                                                                  |          7 |        452 |          0 |         34 |        486 |
+| Final.Tests                                                                          |          2 |        109 |          0 |         34 |        143 |
+| ImGui                                                                                |          5 |        632 |         32 |        141 |        805 |
++--------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                             | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Final.ConsoleApplication.csproj | XML      |         12 |          0 |          5 |         17 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Program.cs                      | C#       |         25 |          0 |          5 |         30 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Shaders\GuiWindowFrag.glsl      | GLSL     |          6 |          0 |          2 |          8 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Shaders\GuiWindowVert.glsl      | GLSL     |          9 |          0 |          3 |         12 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Shaders\basicFrag.glsl          | GLSL     |         13 |          0 |          4 |         17 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Shaders\basicLightingFrag.glsl  | GLSL     |         43 |          3 |         13 |         59 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Shaders\basicLightingVert.glsl  | GLSL     |         15 |          0 |          5 |         20 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Shaders\basicVert.glsl          | GLSL     |         11 |          0 |          3 |         14 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\TextFiles\help.txt              |          |          6 |          0 |          1 |          7 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\Window.cs                       | C#       |        192 |          0 |         35 |        227 |
+| c:\CS1410-1415\cs1410.final\Final.ConsoleApplication\imgui.ini                       | Ini      |         40 |          0 |         11 |         51 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\Component.cs                      | C#       |          9 |          0 |          1 |         10 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\ComponentManager.cs               | C#       |        137 |          0 |         17 |        154 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\LightComponent.cs                 | C#       |         19 |          0 |          3 |         22 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\MaterialComponent.cs              | C#       |         19 |          0 |          2 |         21 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\RenderComponent.cs                | C#       |         42 |          0 |         11 |         53 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\RotationComponent.cs              | C#       |         12 |          0 |          2 |         14 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\ScaleComponent.cs                 | C#       |         12 |          0 |          2 |         14 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\ShaderComponent.cs                | C#       |         18 |          0 |          3 |         21 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\TransformComponent.cs             | C#       |         16 |          0 |          2 |         18 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Components\TranslateComponent.cs             | C#       |         12 |          0 |          2 |         14 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Entities\Camera.cs                           | C#       |         98 |          0 |         17 |        115 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Entities\Cube.cs                             | C#       |         20 |          0 |          3 |         23 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Entities\Entity.cs                           | C#       |         40 |          0 |          6 |         46 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Entities\EntityManager.cs                    | C#       |         26 |          0 |          6 |         32 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Entities\EntityState.cs                      | C#       |          8 |          0 |          1 |          9 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Entities\LightCube.cs                        | C#       |         13 |          0 |          2 |         15 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Final.Logic.csproj                           | XML      |         15 |          0 |          0 |         15 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Mesh.cs                                      | C#       |         92 |          0 |         21 |        113 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Model.cs                                     | C#       |         90 |          3 |         14 |        107 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\MyRef.cs                                     | C#       |         22 |          0 |          3 |         25 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\SceneViewerLogic.cs                          | C#       |        147 |          0 |         17 |        164 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Texture.cs                                   | C#       |         27 |          0 |          2 |         29 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Uniform.cs                                   | C#       |         13 |          0 |          2 |         15 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Vertex.cs                                    | C#       |         22 |          0 |          3 |         25 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\IImguiWidget.cs                      | C#       |          7 |          0 |          0 |          7 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\ImGuiWidget.cs                       | C#       |         61 |          0 |          9 |         70 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\LightWidget.cs                       | C#       |         27 |          0 |          4 |         31 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\MaterialWidget.cs                    | C#       |        210 |          0 |          7 |        217 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\RenderWidget.cs                      | C#       |         62 |          0 |          5 |         67 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\ShaderWidget.cs                      | C#       |         54 |          0 |          3 |         57 |
+| c:\CS1410-1415\cs1410.final\Final.Logic\Widgets\TransformWidget.cs                   | C#       |         31 |          0 |          6 |         37 |
+| c:\CS1410-1415\cs1410.final\Final.Tests\Final.Tests.csproj                           | XML      |         14 |          0 |          6 |         20 |
+| c:\CS1410-1415\cs1410.final\Final.Tests\LogicTest.cs                                 | C#       |         95 |          0 |         28 |        123 |
+| c:\CS1410-1415\cs1410.final\ImGui\ImGui.csproj                                       | XML      |         10 |          0 |          4 |         14 |
+| c:\CS1410-1415\cs1410.final\ImGui\ImGuiController.cs                                 | C#       |        317 |         29 |         71 |        417 |
+| c:\CS1410-1415\cs1410.final\ImGui\Shader.cs                                          | C#       |        117 |          0 |         25 |        142 |
+| c:\CS1410-1415\cs1410.final\ImGui\Texture.cs                                         | C#       |        120 |          3 |         31 |        154 |
+| c:\CS1410-1415\cs1410.final\ImGui\Util.cs                                            | C#       |         68 |          0 |         10 |         78 |
+| Total                                                                                |          |      2,494 |         38 |        438 |      2,970 |
++--------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
