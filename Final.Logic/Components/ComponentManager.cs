@@ -96,23 +96,33 @@ namespace Final.Logic
             switch(ComponentTypes[typeof(T)])
             {
                 case 0:
-                TransformComponents.Add(entityID, new TransformComponent());
+                TransformComponent transformComponent = new TransformComponent();
+                TransformComponents.Add(entityID, transformComponent);
+                AddWidget(entityID, new TransformWidget(transformComponent));
                 break;
 
                 case 1:
-                RenderComponents.Add(entityID, new RenderComponent(GetComponent<TransformComponent>(entityID)));
+                RenderComponent renderComponent = new RenderComponent();
+                RenderComponents.Add(entityID, renderComponent);
+                AddWidget(entityID, new RenderWidget(renderComponent));
                 break;
 
                 case 2:
-                LightComponents.Add(entityID, new LightComponent(GetComponent<TransformComponent>(entityID)));
+                LightComponent lightComponent = new LightComponent(GetComponent<TransformComponent>(entityID));
+                LightComponents.Add(entityID, lightComponent);
+                AddWidget(entityID, new LightWidget(lightComponent));
                 break;
 
                 case 3:
-                ShaderComponents.Add(entityID, new ShaderComponent(GetComponent<RenderComponent>(entityID)));
+                ShaderComponent shaderComponent = new ShaderComponent(GetComponent<RenderComponent>(entityID));
+                ShaderComponents.Add(entityID, shaderComponent);
+                AddWidget(entityID, new ShaderWidget(shaderComponent));
                 break;
 
                 case 4:
-                MaterialComponents.Add(entityID, new MaterialComponent(GetComponent<RenderComponent>(entityID)));
+                MaterialComponent materialComponent= new MaterialComponent(GetComponent<RenderComponent>(entityID));
+                MaterialComponents.Add(entityID, materialComponent);
+                AddWidget(entityID, new MaterialWidget(GetComponent<RenderComponent>(entityID), materialComponent));
                 break;
             }
         }
