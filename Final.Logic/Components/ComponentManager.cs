@@ -116,5 +116,11 @@ namespace Final.Logic
                 break;
             }
         }
+
+
+        public List<IImguiWidget> GetWidgets(uint entityID)
+        {
+            return Widgets[entityID];
+        }
     }
 }
