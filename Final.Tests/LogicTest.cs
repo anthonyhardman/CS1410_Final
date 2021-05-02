@@ -104,5 +104,20 @@ namespace Final.Tests
 
             Assert.AreNotEqual(widgets, null);
         }
+
+        [Test]
+        public void AddWidgetsTest()
+        {
+            ComponentManager componentManager = new ComponentManager();
+
+            componentManager.Widgets = new Dictionary<uint, List<IImguiWidget>>()
+            {
+                {0, new List<IImguiWidget>()}
+            };
+
+            componentManager.AddWidget(0, new TransformWidget(new TransformComponent()));
+
+            Assert.AreEqual(componentManager.Widgets[0].Count, 1);        
+        }
     }
 }

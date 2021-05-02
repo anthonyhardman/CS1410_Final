@@ -122,5 +122,10 @@ namespace Final.Logic
         {
             return Widgets[entityID];
         }
+
+        public void AddWidget(uint entityID, IImguiWidget widget)
+        {
+            
+        }
     }
 }
