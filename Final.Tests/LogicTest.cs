@@ -120,6 +120,15 @@ namespace Final.Tests
             Assert.AreEqual(componentManager.Widgets[0].Count, 1);        
         }
 
-        
+        [Test]
+        public void AddCameraComponentTest()
+        {
+            ComponentManager componentManager = new ComponentManager();
+
+            componentManager.AddComponent<TransformComponent>(0);
+            componentManager.AddComponent<CameraComponent>(0);
+
+            Assert.AreEqual(componentManager.CameraComponents.Count, 1);
+        }
     }
 }

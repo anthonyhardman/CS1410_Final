@@ -22,6 +22,11 @@ namespace Final.Logic
         float MouseSensitivity = 0.05f;
         public float Zoom = 45.0f;
 
+        public CameraComponent(TransformComponent transformComponent)
+        {
+            TransformComponent_ = transformComponent;
+        }
+
         public mat4 GetViewMatrix()
         {
             vec3 position = TransformComponent_.Translate;
@@ -116,7 +121,7 @@ namespace Final.Logic
             GetComponent<TransformComponent>().Translate = new vec3(0.0f, 0.0f, 5.0f);
             GetComponent<TransformComponent>().Rotation.y = 90.0f;
 
-            UpdateCameraVectors();
+            //UpdateCameraVectors();
         }
     }
 }
