@@ -158,33 +158,7 @@ namespace Final.Logic
 
         public List<IImguiWidget> GetComponentWidgets(Entity entity)
         {
-            ComponentWidgets = new List<IImguiWidget>();
-
-            foreach (Type t in entity.Components)
-            {
-                if (t == typeof(TransformComponent))
-                {
-                    ComponentWidgets.Add(new TransformWidget(entity.GetComponent<TransformComponent>()));
-                }
-                else if (t == typeof(RenderComponent))
-                {
-                    ComponentWidgets.Add(new RenderWidget(entity.GetComponent<RenderComponent>()));
-                }
-                else if (t == typeof(LightComponent))
-                {
-                    ComponentWidgets.Add(new LightWidget(entity.GetComponent<LightComponent>()));
-                }
-                else if (t == typeof(ShaderComponent))
-                {
-                    ComponentWidgets.Add(new ShaderWidget(entity.GetComponent<ShaderComponent>()));
-                }
-                else if (t == typeof(MaterialComponent))
-                {
-                    ComponentWidgets.Add(new MaterialWidget(entity.GetComponent<RenderComponent>(), entity.GetComponent<MaterialComponent>()));
-                }
-            }
-
-            return ComponentWidgets;
+            return entity.GetWidgets();
         }
     }
 }

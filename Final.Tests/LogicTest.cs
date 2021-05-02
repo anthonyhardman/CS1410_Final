@@ -119,5 +119,7 @@ namespace Final.Tests
 
             Assert.AreEqual(componentManager.Widgets[0].Count, 1);        
         }
+
+        
     }
 }

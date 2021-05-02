@@ -23,6 +23,11 @@ namespace Final.Logic
 
         public override void Run()
         {
+            if (textBuffer == "")
+            {
+                textBuffer = RenderComponent_.Model_.File;
+            }
+
             ImGui.PushItemWidth(250);
             ImGui.PushID("Model");
             if (ImGui.CollapsingHeader("Model"))
@@ -38,6 +43,8 @@ namespace Final.Logic
                         MaterialComponent material = RenderComponent_.Model_.MaterialComponent_;
                         RenderComponent_.Model_ = new Model(textBuffer, new Shader("Shaders\\basicLightingVert.glsl", "Shaders\\basicLightingFrag.glsl"));
                         RenderComponent_.Model_.MaterialComponent_ = material;
+                        ErrorState = false;
+                        ErrorText = "";
                     }
                     catch(System.IO.FileNotFoundException e)
                     {
