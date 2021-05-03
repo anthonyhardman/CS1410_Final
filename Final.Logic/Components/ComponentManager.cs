@@ -126,6 +126,11 @@ namespace Final.Logic
                 MaterialComponents.Add(entityID, materialComponent);
                 AddWidget(entityID, new MaterialWidget(GetComponent<RenderComponent>(entityID), materialComponent));
                 break;
+
+                case 5:
+                CameraComponent cameraComponent = new CameraComponent(GetComponent<TransformComponent>(entityID));
+                CameraComponents.Add(entityID, cameraComponent);
+                break;
             }
         }
 
