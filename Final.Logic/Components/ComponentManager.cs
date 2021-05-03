@@ -88,6 +88,18 @@ namespace Final.Logic
                     throw;
                 }
                 break;
+
+                case 5:
+                try
+                {
+                    component = CameraComponents[entityID] as T;
+                }
+                catch
+                {
+                    Console.WriteLine($"Entity {entityID} does not have a camera component!");
+                    throw;
+                }
+                break;
             }
 
             return component;
