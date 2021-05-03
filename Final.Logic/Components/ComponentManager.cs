@@ -11,7 +11,8 @@ namespace Final.Logic
             {typeof(RenderComponent), 1},
             {typeof(LightComponent), 2},
             {typeof(ShaderComponent), 3},
-            {typeof(MaterialComponent), 4}
+            {typeof(MaterialComponent), 4},
+            {typeof(CameraComponent), 5}
         };
 
         public Dictionary<uint, TransformComponent> TransformComponents = new Dictionary<uint, TransformComponent>();
