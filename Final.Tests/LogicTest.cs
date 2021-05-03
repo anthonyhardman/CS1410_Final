@@ -130,5 +130,18 @@ namespace Final.Tests
 
             Assert.AreEqual(componentManager.CameraComponents.Count, 1);
         }
+
+        [Test]
+        public void GetCameraComponentTest()
+        {
+            ComponentManager componentManager = new ComponentManager();
+
+            componentManager.CameraComponents = new Dictionary<uint, CameraComponent>()
+            {
+                {0, new CameraComponent(new TransformComponent())}
+            };
+
+            Assert.AreNotEqual(componentManager.GetComponent<CameraComponent>(0), null);
+        }
     }
 }
