@@ -13,10 +13,9 @@ namespace Final.Logic
 
         public override void Run()
         {
-            
             ImGui.Separator();
             if (ImGui.CollapsingHeader("Transform"))
-            {   
+            {
                 ImGui.Text("Translate");
                 IncreaseDecreaseDragFloat(ref transformComponent.Translate.x, "X ", "Translate X");
                 IncreaseDecreaseDragFloat(ref transformComponent.Translate.y, "Y ", "Translate Y");
@@ -26,7 +25,7 @@ namespace Final.Logic
                 IncreaseDecreaseDragFloat(ref transformComponent.Rotation.x, "X ", "Rotate X");
                 IncreaseDecreaseDragFloat(ref transformComponent.Rotation.y, "Y ", "Rotate Y");
                 IncreaseDecreaseDragFloat(ref transformComponent.Rotation.z, "Z ", "Rotate Z");
-                
+
                 ImGui.Text("Scale");
                 IncreaseDecreaseDragFloat(ref transformComponent.Scale.x, "X ", "Scale X");
                 IncreaseDecreaseDragFloat(ref transformComponent.Scale.y, "Y ", "Scale Y");

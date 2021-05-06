@@ -21,7 +21,7 @@ namespace Final.Logic
         private int ComponentTypeIndex = 0;
         private mat4 View;
         private mat4 projection;
-        private Camera Camera_ = new Camera();
+        private CameraComponent Camera_;
 
         private IEnumerable<RenderComponent> RenderComponents;
 
@@ -41,8 +41,6 @@ namespace Final.Logic
             LastX = MouseState.Position.X;
             LastY = MouseState.Position.Y;
             _SceneViewerLogic = sceneViewerLogic;
-
-            Mesh.Camera_ = Camera_;
         }
 
         protected override void OnLoad()
@@ -56,6 +54,8 @@ namespace Final.Logic
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
+            Camera_ = _SceneViewerLogic.GetActiveCameraComponent();
+
             if (DrawLines)
             {
                 GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
@@ -78,11 +78,11 @@ namespace Final.Logic
             View = Camera_.GetViewMatrix();
             projection = mat4.Perspective(Camera_.Zoom, (float)Size.X / Size.Y, 0.1f, 200.0f);
             
-            IEnumerable<string> EntityNames = _SceneViewerLogic.GetEntityNames();
+            IEnumerable<string> EntityNames = _SceneViewerLogic.GetEntityNames().OrderBy(s => s);
 
             foreach (RenderComponent component in RenderComponents)
             {
-                component.Draw(View, projection);
+                component.Draw(View, projection, Camera_.TransformComponent_.Translate);
             }
 
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);

@@ -7,7 +7,6 @@ namespace Final.Logic
 {
     public class Mesh
     {
-        public static Camera Camera_;
         public static List<LightComponent> Lights;
         public List<Vertex> Vertices;
         public List<uint> Indices;
@@ -50,7 +49,7 @@ namespace Final.Logic
             GL.EnableVertexAttribArray(2);
         }
 
-        public void Draw(mat4 modelMatix, mat4 viewMatrix, mat4 projectionMatrix, Shader shader, 
+        public void Draw(mat4 modelMatix, mat4 viewMatrix, mat4 projectionMatrix, vec3 cameraPosition,Shader shader, 
                          List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, 
                          List<Uniform<MyRef<vec3>>> uniformVec3s, MaterialComponent material)
         {
@@ -82,7 +81,7 @@ namespace Final.Logic
             shader.setMat4("view", viewMatrix);
             shader.setMat4("projection", projectionMatrix);
 
-            shader.setVec3("viewPos", Camera_.GetComponent<TransformComponent>().Translate);
+            shader.setVec3("viewPos", cameraPosition);
 
             if (material != null)
             {
@@ -100,6 +99,9 @@ namespace Final.Logic
                 shader.setVec3($"lights[{count}].ambient", light.Ambient);
                 shader.setVec3($"lights[{count}].diffuse", light.Diffuse);
                 shader.setVec3($"lights[{count}].specular", light.Specular);
+                shader.setFloat($"lights[{count}].constant", light.Constant);
+                shader.setFloat($"lights[{count}].linear", light.Linear);
+                shader.setFloat($"lights[{count}].quadratic", light.Quadratic);
 
                 ++count;
             }

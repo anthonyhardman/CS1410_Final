@@ -25,6 +25,9 @@ namespace Final.Logic
                 MyColorPicker(ref LightComponent_.Diffuse, "diffuse");
                 ImGui.Text("Specular");
                 MyColorPicker(ref LightComponent_.Specular, "specular");
+                IncreaseDecreaseDragFloat(ref LightComponent_.Constant, "Constant", "Constant");
+                IncreaseDecreaseDragFloat(ref LightComponent_.Linear, "Linear", "Linear");
+                IncreaseDecreaseDragFloat(ref LightComponent_.Quadratic, "Quadratic", "Quadratic");
             }
         }
     }

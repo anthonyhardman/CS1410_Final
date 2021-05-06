@@ -18,6 +18,7 @@ namespace Final.ConsoleApplication
             Window window = new Window(GameWindowSettings.Default, nativeWindowSettings, new SceneViewerLogic(Entity.EntityManager_));
             window.VSync = OpenTK.Windowing.Common.VSyncMode.Off;
             
+            Camera defaultCamera = new Camera();
             Cube cube = new Cube();
             Entity entity = new Entity();
             LightCube lightCube = new LightCube();

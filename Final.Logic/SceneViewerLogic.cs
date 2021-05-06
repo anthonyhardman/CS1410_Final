@@ -8,11 +8,12 @@ namespace Final.Logic
         private readonly EntityManager EntityManager_;
         public List<string> EntityTypes = new List<string>()
         {
-            "Entity", "Cube", "LightCube"
+            "Entity", "Cube", "LightCube", "Tree Type 1", "Tree Type 2", "Tree Type 3",
+            "Terrain", "Camera"
         };
         public List<string> ComponentTypes = new List<string>()
         {
-            "Transform", "Render", "Material", "Light", "Shader"
+            "Transform", "Render", "Material", "Light", "Shader", "Camera"
         };
 
         public List<IImguiWidget> ComponentWidgets;
@@ -52,6 +53,21 @@ namespace Final.Logic
 
                 case "LightCube":
                     LightCube lightCube = new LightCube();
+                    break;
+                case "Tree Type 1":
+                    Tree tree1 = new Tree(1);
+                    break;
+                case "Tree Type 2":
+                    Tree tree2 = new Tree(2);
+                    break;
+                case "Tree Type 3":
+                    Tree tree3 = new Tree(3);
+                    break;
+                case "Terrain":
+                    Terrain terrain = new Terrain();
+                    break;
+                case "Camera":
+                    Camera camera = new Camera();
                     break;
             }
         }
@@ -151,9 +167,33 @@ namespace Final.Logic
                         ErrorText = "Must have a render component to add a shader!";
                     }
                     break;
+
+                case "Camera":
+                    try
+                    {
+                        if (!entity.Components.Contains(typeof(CameraComponent)))
+                        {
+                            entity.AddComponent<CameraComponent>();
+                            ErrorText = "";
+                        }
+                        else
+                        {
+                            ErrorText = "Entity already has a camera component";
+                        }
+                    }
+                    catch
+                    {
+                        ErrorText = "Must have a transform component to add a camera!";
+                    }
+                    break;
             }
 
             return ErrorText;
+        }
+
+        public CameraComponent GetActiveCameraComponent()
+        {
+            return Entity.ComponentManager_.ActiveCamera;
         }
 
         public List<IImguiWidget> GetComponentWidgets(Entity entity)

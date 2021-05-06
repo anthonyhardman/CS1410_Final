@@ -23,83 +23,85 @@ namespace Final.Logic
         public Dictionary<uint, CameraComponent> CameraComponents = new Dictionary<uint, CameraComponent>();
         public Dictionary<uint, List<IImguiWidget>> Widgets = new Dictionary<uint, List<IImguiWidget>>();
 
+        public CameraComponent ActiveCamera;
+
         public T GetComponent<T>(uint entityID) where T : Component
         {
             T component = null;
 
-            switch(ComponentTypes[typeof(T)])
+            switch (ComponentTypes[typeof(T)])
             {
                 case 0:
-                try 
-                {
-                    component = TransformComponents[entityID] as T;
-                }
-                catch (KeyNotFoundException)
-                {
-                    Console.WriteLine($"Entity {entityID} does not have a transform component!");
-                    throw;
-                }
-                break;
-                
+                    try
+                    {
+                        component = TransformComponents[entityID] as T;
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        Console.WriteLine($"Entity {entityID} does not have a transform component!");
+                        throw;
+                    }
+                    break;
+
                 case 1:
-                try
-                {
-                    component = RenderComponents[entityID] as T;
-                }
-                catch
-                {
-                    Console.WriteLine($"Entity {entityID} does not have a render component!");
-                    throw;
-                }
-                break;
+                    try
+                    {
+                        component = RenderComponents[entityID] as T;
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Entity {entityID} does not have a render component!");
+                        throw;
+                    }
+                    break;
 
                 case 2:
-                try
-                {
-                    component = LightComponents[entityID] as T;
-                }
-                catch
-                {
-                    Console.WriteLine($"Entity {entityID} does not have a light component!");
-                    throw;
-                }
-                break;
+                    try
+                    {
+                        component = LightComponents[entityID] as T;
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Entity {entityID} does not have a light component!");
+                        throw;
+                    }
+                    break;
 
                 case 3:
-                try
-                {
-                    component = ShaderComponents[entityID] as T;
-                }
-                catch
-                {
-                    Console.WriteLine($"Entity {entityID} does not have a shader component!");
-                    throw;
-                }
-                break;
+                    try
+                    {
+                        component = ShaderComponents[entityID] as T;
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Entity {entityID} does not have a shader component!");
+                        throw;
+                    }
+                    break;
 
                 case 4:
-                try
-                {
-                    component = MaterialComponents[entityID] as T;
-                }
-                catch
-                {
-                    Console.WriteLine($"Entity {entityID} does not have a material component!");
-                    throw;
-                }
-                break;
+                    try
+                    {
+                        component = MaterialComponents[entityID] as T;
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Entity {entityID} does not have a material component!");
+                        throw;
+                    }
+                    break;
 
                 case 5:
-                try
-                {
-                    component = CameraComponents[entityID] as T;
-                }
-                catch
-                {
-                    Console.WriteLine($"Entity {entityID} does not have a camera component!");
-                    throw;
-                }
-                break;
+                    try
+                    {
+                        component = CameraComponents[entityID] as T;
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Entity {entityID} does not have a camera component!");
+                        throw;
+                    }
+                    break;
             }
 
             return component;
@@ -107,42 +109,47 @@ namespace Final.Logic
 
         public void AddComponent<T>(uint entityID) where T : Component
         {
-            switch(ComponentTypes[typeof(T)])
+            switch (ComponentTypes[typeof(T)])
             {
                 case 0:
-                TransformComponent transformComponent = new TransformComponent();
-                TransformComponents.Add(entityID, transformComponent);
-                AddWidget(entityID, new TransformWidget(transformComponent));
-                break;
+                    TransformComponent transformComponent = new TransformComponent();
+                    TransformComponents.Add(entityID, transformComponent);
+                    AddWidget(entityID, new TransformWidget(transformComponent));
+                    break;
 
                 case 1:
-                RenderComponent renderComponent = new RenderComponent(GetComponent<TransformComponent>(entityID));
-                RenderComponents.Add(entityID, renderComponent);
-                AddWidget(entityID, new RenderWidget(renderComponent));
-                break;
+                    RenderComponent renderComponent = new RenderComponent(GetComponent<TransformComponent>(entityID));
+                    RenderComponents.Add(entityID, renderComponent);
+                    AddWidget(entityID, new RenderWidget(renderComponent));
+                    break;
 
                 case 2:
-                LightComponent lightComponent = new LightComponent(GetComponent<TransformComponent>(entityID));
-                LightComponents.Add(entityID, lightComponent);
-                AddWidget(entityID, new LightWidget(lightComponent));
-                break;
+                    LightComponent lightComponent = new LightComponent(GetComponent<TransformComponent>(entityID));
+                    LightComponents.Add(entityID, lightComponent);
+                    AddWidget(entityID, new LightWidget(lightComponent));
+                    break;
 
                 case 3:
-                ShaderComponent shaderComponent = new ShaderComponent(GetComponent<RenderComponent>(entityID));
-                ShaderComponents.Add(entityID, shaderComponent);
-                AddWidget(entityID, new ShaderWidget(shaderComponent));
-                break;
+                    ShaderComponent shaderComponent = new ShaderComponent(GetComponent<RenderComponent>(entityID));
+                    ShaderComponents.Add(entityID, shaderComponent);
+                    AddWidget(entityID, new ShaderWidget(shaderComponent));
+                    break;
 
                 case 4:
-                MaterialComponent materialComponent= new MaterialComponent(GetComponent<RenderComponent>(entityID));
-                MaterialComponents.Add(entityID, materialComponent);
-                AddWidget(entityID, new MaterialWidget(GetComponent<RenderComponent>(entityID), materialComponent));
-                break;
+                    MaterialComponent materialComponent = new MaterialComponent(GetComponent<RenderComponent>(entityID));
+                    MaterialComponents.Add(entityID, materialComponent);
+                    AddWidget(entityID, new MaterialWidget(GetComponent<RenderComponent>(entityID), materialComponent));
+                    break;
 
                 case 5:
-                CameraComponent cameraComponent = new CameraComponent(GetComponent<TransformComponent>(entityID));
-                CameraComponents.Add(entityID, cameraComponent);
-                break;
+                    CameraComponent cameraComponent = new CameraComponent(GetComponent<TransformComponent>(entityID));
+                    CameraComponents.Add(entityID, cameraComponent);
+                    if (ActiveCamera == null)
+                    {
+                        ActiveCamera = cameraComponent;
+                    }
+                    AddWidget(entityID, new CameraWidget(cameraComponent));
+                    break;
             }
         }
 

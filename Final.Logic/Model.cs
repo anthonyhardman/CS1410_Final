@@ -96,11 +96,11 @@ namespace Final.Logic
             return new Mesh(vertices, indices, MaterialComponent_, Textures);
         }
 
-        public void draw(mat4 modelMatrix, mat4 viewMatrix, mat4 projectionMatrix, List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, List<Uniform<MyRef<vec3>>> uniformVec3s)
+        public void draw(mat4 modelMatrix, mat4 viewMatrix, mat4 projectionMatrix, vec3 cameraViewPosition,List<Uniform<MyRef<int>>> uniformInts, List<Uniform<MyRef<float>>> uniformFloats, List<Uniform<MyRef<vec3>>> uniformVec3s)
         {
             foreach (Mesh mesh in Meshes)
             {
-                mesh.Draw(modelMatrix, viewMatrix, projectionMatrix, Shader_, uniformInts, uniformFloats, uniformVec3s, MaterialComponent_);
+                mesh.Draw(modelMatrix, viewMatrix, projectionMatrix, cameraViewPosition, Shader_, uniformInts, uniformFloats, uniformVec3s, MaterialComponent_);
             }
         }
     }

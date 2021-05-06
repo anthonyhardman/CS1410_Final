@@ -45,9 +45,9 @@ namespace Final.Logic
             Transform = transform;
         }
 
-        public void Draw(mat4 viewMatrix, mat4 projectionMatrix)
+        public void Draw(mat4 viewMatrix, mat4 projectionMatrix, vec3 cameraViewPosition)
         {
-            Model_?.draw(ModelMatrix, viewMatrix, projectionMatrix, UniformInts, UniformFloats, UniformVec3s);
+            Model_?.draw(ModelMatrix, viewMatrix, projectionMatrix, cameraViewPosition, UniformInts, UniformFloats, UniformVec3s);
         }
     }
 }
